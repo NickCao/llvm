@@ -2010,10 +2010,7 @@ pi_result hip_piMemRelease(pi_mem memObj) {
     }
 
     else if (memObj->mem_type_ == _pi_mem::mem_type::surface) {
-      ret = PI_CHECK_ERROR(hipDestroySurfaceObject(
-          uniqueMemObj->mem_.surface_mem_.get_surface()));
-      auto array = uniqueMemObj->mem_.surface_mem_.get_array();
-      ret = PI_CHECK_ERROR(hipFreeArray(array));
+	ret = PI_OUT_OF_RESOURCES;
     }
 
   } catch (pi_result err) {
@@ -2843,7 +2840,7 @@ pi_result hip_piMemImageCreate(pi_context context, pi_mem_flags flags,
     image_res_desc.resType = hipResourceTypeArray;
 
     hipSurfaceObject_t surface;
-    retErr = PI_CHECK_ERROR(hipCreateSurfaceObject(&surface, &image_res_desc));
+    retErr = PI_OUT_OF_RESOURCES;
 
     auto piMemObj = std::unique_ptr<_pi_mem>(new _pi_mem{
         context, image_array, surface, image_desc->image_type, host_ptr});

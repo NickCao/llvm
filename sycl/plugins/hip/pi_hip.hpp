@@ -18,6 +18,8 @@
 #ifndef PI_HIP_HPP
 #define PI_HIP_HPP
 
+#define __HIP_PLATFORM_HCC__
+
 #include "CL/sycl/detail/pi.h"
 #include <array>
 #include <atomic>
